@@ -9,14 +9,14 @@ export const clientExists = async (
   _: Response,
   next: NextFunction
 ): Promise<void> => {
-  const userId = +req.params.id;
-  const userRepo: Repository<Client> = AppDataSource.getRepository(Client);
+  const clientId = +req.params.id;
+  const clientRepo: Repository<Client> = AppDataSource.getRepository(Client);
 
-  const findId: Client | null = await userRepo.findOneBy({
-    id: userId,
+  const findId: Client | null = await clientRepo.findOneBy({
+    id: clientId,
   });
 
-  if (!findId) throw new AppError(`User not found`, 404);
+  if (!findId) throw new AppError(`Client not found`, 404);
 
   next();
 };

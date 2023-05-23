@@ -1,2 +1,2 @@
-export * from "./clients.entities";
-export * from "./contacts.entities";
+export * from "./clients.entity";
+export * from "./contacts.entity";

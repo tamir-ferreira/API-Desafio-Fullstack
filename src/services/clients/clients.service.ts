@@ -1,34 +1,32 @@
-import { AppDataSource } from "../data-source";
-import { Client } from "../entities";
-import { clients } from "../schemas";
-import * as i from "../interfaces";
+import { AppDataSource } from "../../data-source";
+import { Client } from "../../entities";
+import { clients } from "../../schemas";
+import * as i from "../../interfaces/clients.interface";
 
 /* -------------------- CREATE CLIENT SERVICE ----------------------- */
-export const create = async (
-  clientData: i.clients.Create
-): Promise<i.clients.Response> => {
-  const clientRepo: i.clients.ClientRepo = AppDataSource.getRepository(Client);
+export const create = async (clientData: i.Create): Promise<i.Response> => {
+  const clientRepo: i.ClientRepo = AppDataSource.getRepository(Client);
   const newClient: Client = clientRepo.create(clientData);
 
   await clientRepo.save(newClient);
-  const parsedUser: i.clients.Response = clients.response.parse(newClient);
+  const parsedUser: i.Response = clients.response.parse(newClient);
 
   return parsedUser;
 };
 
 /* -------------------- LIST ALL CLIENTS SERVICE ----------------------- */
-export const listAll = async (): Promise<i.clients.ListAll> => {
-  const clientRepo: i.clients.ClientRepo = AppDataSource.getRepository(Client);
+export const listAll = async (): Promise<i.ListAll> => {
+  const clientRepo: i.ClientRepo = AppDataSource.getRepository(Client);
 
   const allClients: Array<Client> = await clientRepo.find();
-  const parsedAllClients: i.clients.ListAll = clients.listAll.parse(allClients);
+  const parsedAllClients: i.ListAll = clients.listAll.parse(allClients);
 
   return parsedAllClients;
 };
 
 /* -------------------- DELETE CLIENT SERVICE ----------------------- */
 export const remove = async (IdClient: number): Promise<void> => {
-  const clientRepo: i.clients.ClientRepo = AppDataSource.getRepository(Client);
+  const clientRepo: i.ClientRepo = AppDataSource.getRepository(Client);
   /* const findClient: Client | null = await clientRepo.findOneBy({
     id: IdClient,
   }); */
@@ -40,9 +38,9 @@ export const remove = async (IdClient: number): Promise<void> => {
 export const update = async (
   IdClient: number,
   // reqClient: { id: number; isAdmin: boolean },
-  clientData: i.clients.Update
-): Promise<i.clients.Response> => {
-  const clientRepo: i.clients.ClientRepo = AppDataSource.getRepository(Client);
+  clientData: i.Update
+): Promise<i.Response> => {
+  const clientRepo: i.ClientRepo = AppDataSource.getRepository(Client);
   const findClient: Client | null = await clientRepo.findOneBy({
     id: IdClient,
   });
@@ -57,8 +55,7 @@ export const update = async (
 
   await clientRepo.save(updatedClient);
 
-  const parsedUpdated: i.clients.Response =
-    clients.response.parse(updatedClient);
+  const parsedUpdated: i.Response = clients.response.parse(updatedClient);
 
   return parsedUpdated;
 };

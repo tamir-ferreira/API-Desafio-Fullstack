@@ -30,6 +30,7 @@ export class Client {
   @CreateDateColumn({ type: "date" })
   createdAt: string;
 
+  // @OneToMany(() => Contact, (contacts) => contacts.client, {onDelete: 'CASCADE'})
   @OneToMany(() => Contact, (contacts) => contacts.client)
   contacts: Contact[];
 

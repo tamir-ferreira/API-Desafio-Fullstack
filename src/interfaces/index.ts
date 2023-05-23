@@ -1,2 +1,2 @@
-export * as clients from "./clients.interfaces";
-export * as contacts from "./contacts.interfaces";
+export * as clients from "./clients.interface";
+export * as contacts from "./contacts.interface";

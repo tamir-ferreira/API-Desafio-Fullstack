@@ -4,22 +4,22 @@ import { AppDataSource } from "../data-source";
 import { Client } from "../entities";
 import { AppError } from "../errors";
 
-export const emailExists = async (
+export const emailClientExists = async (
   req: Request,
   _: Response,
   next: NextFunction
 ): Promise<void> => {
-  const userEmail: any = req.body.email;
-  const userRepo: Repository<Client> = AppDataSource.getRepository(Client);
+  const clientEmail: any = req.body.email;
+  const clientRepo: Repository<Client> = AppDataSource.getRepository(Client);
 
-  const findEmail: boolean = await userRepo.exist({
+  const findEmail: boolean = await clientRepo.exist({
     where: {
-      email: userEmail,
+      email: clientEmail,
     },
     withDeleted: true,
   });
 
-  if (findEmail && userEmail) throw new AppError(`Email already exists`, 409);
+  if (findEmail && clientEmail) throw new AppError(`Email already exists`, 409);
 
   next();
 };

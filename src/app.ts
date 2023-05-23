@@ -8,6 +8,7 @@ const app: Application = express();
 app.use(json());
 
 app.use("/clients", routes.clients);
+app.use("/login", routes.login);
 app.use("/contacts", routes.contacts);
 
 app.use(errorHandler);

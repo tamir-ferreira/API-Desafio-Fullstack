@@ -9,6 +9,6 @@ export type Update = DeepPartial<typeof schemas.update>;
 
 export type Response = z.infer<typeof schemas.response>;
 
-export type ListAll = z.infer<typeof schemas.listAll>;
+// export type ListById = z.infer<typeof schemas.ListById>;
 
 export type ClientRepo = Repository<Client>;

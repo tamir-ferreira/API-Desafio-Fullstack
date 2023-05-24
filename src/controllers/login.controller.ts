@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import * as services from "../services/index";
+import { createTokenLogin } from "../services/login/login.service";
 
 export const createToken = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  const token = await services.login.createToken({ email, password });
+  const token = await createTokenLogin({ email, password });
 
   return res.json({ token });
 };

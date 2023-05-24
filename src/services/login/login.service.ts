@@ -2,11 +2,11 @@ import "dotenv/config";
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { AppDataSource } from "../../data-source";
-import { Client } from "../../entities/clients.entity";
+import { Client } from "../../entities/client.entity";
 import { AppError } from "../../errors";
 import * as i from "../../interfaces/login.interface";
 
-export const createToken = async ({
+export const createTokenLogin = async ({
   email,
   password,
 }: i.Request): Promise<string> => {
@@ -27,15 +27,10 @@ export const createToken = async ({
   if (!passwordMatch) {
     throw new AppError("Invalid credentials", 403);
   }
-
-  const token = jwt.sign(
-    { userName: client.full_name },
-    process.env.SECRET_KEY!,
-    {
-      expiresIn: "1h",
-      subject: `${client.id}`,
-    }
-  );
+  const token = jwt.sign({ email: client.email }, process.env.SECRET_KEY!, {
+    expiresIn: "1h",
+    subject: client.id,
+  });
 
   return token;
 };

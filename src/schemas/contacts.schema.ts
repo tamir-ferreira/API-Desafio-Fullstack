@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const response = z.object({
-  id: z.number().int().positive(),
+  id: z.string(),
   full_name: z.string().max(45),
   email: z
     .string()
@@ -17,6 +17,10 @@ export const create = response.omit({
   createdAt: true,
 });
 
-export const update = create.partial();
+export const update = response
+  .omit({
+    id: true,
+  })
+  .partial();
 
-export const listAll = z.array(response.nullable());
+export const listAll = z.array(response);

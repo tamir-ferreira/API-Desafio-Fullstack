@@ -12,14 +12,15 @@ clients.post(
   controller.clients.create
 );
 
-clients.get("", controller.clients.listAll);
+clients.use(middleware.validateToken);
+
+clients.get("", controller.clients.listById);
+
+clients.delete("", controller.clients.remove);
 
 clients.patch(
-  "/:id",
+  "",
   middleware.validateBody(schema.clients.update),
-  middleware.clientExists,
   middleware.emailClientExists,
   controller.clients.update
 );
-
-clients.delete("/:id", middleware.clientExists, controller.clients.remove);

@@ -1,9 +1,12 @@
+import { ensureIsOwnerMiddleware } from "../middlewares/ensureIsOwner.middleware";
 import { Router } from "express";
 import * as controller from "../controllers";
 import * as middleware from "../middlewares";
 import * as schema from "../schemas";
 
 export const contacts = Router();
+
+contacts.use(middleware.validateToken);
 
 contacts.post(
   "",
@@ -12,13 +15,20 @@ contacts.post(
   controller.contacts.create
 );
 
-contacts.get("", controller.contacts.listAll);
+contacts.get("", controller.contacts.listByClient);
 
 contacts.patch(
   "/:id",
-  middleware.validateBody(schema.contacts.update),
   middleware.contactExists,
+  middleware.validateBody(schema.contacts.update),
+  middleware.ensureIsOwnerMiddleware,
+  middleware.emailContactExists,
   controller.contacts.update
 );
 
-contacts.delete("/:id", middleware.contactExists, controller.contacts.remove);
+contacts.delete(
+  "/:id",
+  middleware.contactExists,
+  middleware.ensureIsOwnerMiddleware,
+  controller.contacts.remove
+);

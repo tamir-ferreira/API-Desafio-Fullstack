@@ -9,8 +9,8 @@ import { Client } from ".";
 
 @Entity("contacts")
 export class Contact {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({ length: 45 })
   full_name: string;
@@ -24,6 +24,6 @@ export class Contact {
   @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @ManyToOne(() => Client, (client) => client.contacts)
+  @ManyToOne(() => Client)
   client: Client;
 }

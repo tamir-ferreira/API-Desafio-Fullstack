@@ -9,7 +9,7 @@ export const emailContactExists = async (
   _: Response,
   next: NextFunction
 ): Promise<void> => {
-  const contactEmail: any = req.body.email;
+  const contactEmail: string = req.body.email;
   const contactRepo: Repository<Contact> = AppDataSource.getRepository(Contact);
 
   const findEmail: boolean = await contactRepo.exist({

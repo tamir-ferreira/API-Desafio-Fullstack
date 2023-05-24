@@ -1,23 +1,32 @@
 import { Request, Response } from "express";
+import { createClients } from "../services/clients/createClients.service";
+import { readClients } from "../services/clients/readClients.service";
+import { updateClients } from "../services/clients/updateClients.service";
+import { removeClients } from "../services/clients/removeClients.service";
 import * as i from "../interfaces";
-import * as services from "../services";
 
 /* -------------------- CREATE CLIENT CONTROLLER ----------------------- */
 export const create = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const createdClient: i.clients.Response = await services.clients.create(
-    req.body
-  );
+  const createdClient: i.clients.Response = await createClients(req.body);
   return res.status(201).json(createdClient);
 };
 
-/* -------------------- LIST ALL CLIENTS CONTROLLER ----------------------- */
-export const listAll = async (_: Request, res: Response): Promise<Response> => {
-  const allClients: i.clients.ListAll = await services.clients.listAll();
+/* -------------------- LIST CLIENT BY ID CONTROLLER ----------------------- */
+export const listById = async (
+  _: Request,
+  res: Response
+): Promise<Response> => {
+  const clientId = res.locals.clientId;
+  // console.log("==================================");
+  // console.log(clientId);
+  // console.log("==================================");
 
-  return res.status(200).json(allClients);
+  const client: i.clients.Response = await readClients(clientId);
+
+  return res.status(200).json(client);
 };
 
 /* -------------------- REMOVE CLIENT CONTROLLER ----------------------- */
@@ -25,31 +34,20 @@ export const remove = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  await services.clients.remove(+req.params.id);
+  const clientId = res.locals.clientId;
+  await removeClients(clientId);
 
   return res.status(204).json();
 };
-
-/* -------------------- GET CLIENT BY ID CONTROLLER ----------------------- */
-/* export const getById = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  const client: i.clients.Response = await services.clients.getById(
-    +req.params.id
-  );
-
-  return res.status(200).json(client);
-}; */
 
 /* -------------------- UPDATE CLIENT CONTROLLER ----------------------- */
 export const update = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const updatedClient: i.clients.Response = await services.clients.update(
-    +req.params.id,
-    // req.user,
+  const clientId = res.locals.clientId;
+  const updatedClient: i.clients.Response = await updateClients(
+    clientId,
     req.body
   );
 

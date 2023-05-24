@@ -3,9 +3,9 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { AppError } from "../errors";
 
-export const tokenIsValid = async (
+export const validateToken = async (
   req: Request,
-  _: Response,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   let token = req.headers.authorization;
@@ -16,11 +16,8 @@ export const tokenIsValid = async (
 
   jwt.verify(token, process.env.SECRET_KEY!, (error, decoded: any) => {
     if (error) throw new AppError(error.message, 401);
-
-    /* req.user = {
-      id: +decoded.sub,
-      isAdmin: decoded.admin,
-    }; */
+    res.locals.clientId = decoded.sub;
+    res.locals.email = decoded.email;
   });
 
   return next();

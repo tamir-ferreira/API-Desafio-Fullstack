@@ -9,7 +9,7 @@ export const clientExists = async (
   _: Response,
   next: NextFunction
 ): Promise<void> => {
-  const clientId = +req.params.id;
+  const clientId = req.params.id;
   const clientRepo: Repository<Client> = AppDataSource.getRepository(Client);
 
   const findId: Client | null = await clientRepo.findOneBy({

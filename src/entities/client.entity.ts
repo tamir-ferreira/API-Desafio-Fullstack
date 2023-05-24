@@ -12,8 +12,8 @@ import { Contact } from ".";
 
 @Entity("clients")
 export class Client {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column({ length: 45 })
   full_name: string;
@@ -30,8 +30,9 @@ export class Client {
   @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  // @OneToMany(() => Contact, (contacts) => contacts.client, {onDelete: 'CASCADE'})
-  @OneToMany(() => Contact, (contacts) => contacts.client)
+  @OneToMany(() => Contact, (contact) => contact.client, {
+    onDelete: "CASCADE",
+  })
   contacts: Contact[];
 
   @BeforeInsert()

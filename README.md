@@ -207,7 +207,9 @@ As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
 
 ### Possíveis Erros:
 
+| -------------------------------- |
 | Código do Erro | 400 Bad Request |
+| -------------------------------- |
 
 Caso não envie algum campo requerido, como password no exemplo.
 
@@ -219,7 +221,9 @@ Caso não envie algum campo requerido, como password no exemplo.
 }
 ```
 
+| ----------------------------- |
 | Código do Erro | 409 Conflict |
+| ----------------------------- |
 
 Caso tente cadastrar um e-mail de cliente que já conste no database.
 
@@ -229,7 +233,9 @@ Caso tente cadastrar um e-mail de cliente que já conste no database.
 }
 ```
 
+| -------------------------------- |
 | Código do Erro | 400 Bad Request |
+| -------------------------------- |
 
 Caso tente passar um campo no formato inválido, como o telefone por exemplo.
 
@@ -453,7 +459,9 @@ As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
 
 ### Possíveis Erros:
 
+| -------------------------------- |
 | Código do Erro | 400 Bad Request |
+| -------------------------------- |
 
 Caso não envie algum campo requerido, como email no exemplo.
 
@@ -465,7 +473,9 @@ Caso não envie algum campo requerido, como email no exemplo.
 }
 ```
 
+| ----------------------------- |
 | Código do Erro | 409 Conflict |
+| ----------------------------- |
 
 Caso tente cadastrar um e-mail de contato que já conste no database.
 
@@ -475,7 +485,9 @@ Caso tente cadastrar um e-mail de contato que já conste no database.
 }
 ```
 
+| -------------------------------- |
 | Código do Erro | 400 Bad Request |
+| -------------------------------- |
 
 Caso tente passar um campo no formato inválido, como o telefone por exemplo.
 
@@ -635,7 +647,9 @@ Vazio
 
 ### Rotas autenticas:
 
+| --------------------------------- |
 | Código do Erro | 401 Unauthorized |
+| --------------------------------- |
 
 Caso tente acessar sem passar um Token.
 
@@ -645,6 +659,10 @@ Caso tente acessar sem passar um Token.
 }
 ```
 
+| --------------------------------- |
+| Código do Erro | 401 Unauthorized |
+| --------------------------------- |
+
 Caso tente acessar com um Token inválido.
 
 ```json
@@ -653,7 +671,9 @@ Caso tente acessar com um Token inválido.
 }
 ```
 
+| -------------------------------|
 | Código do Erro | 404 Not Found |
+| -------------------------------|
 
 Caso tente acessar com o Token de um cliente que já foi deletado do database.
 
@@ -667,7 +687,9 @@ Caso tente acessar com o Token de um cliente que já foi deletado do database.
 
 ### Rotas que exigem a passagem do ID por parâmetro:
 
+| -------------------------------- |
 | Código do Erro | 400 Bad Request |
+| -------------------------------- |
 
 Caso passe um ID em um formato diferente do UUID.
 
@@ -677,7 +699,9 @@ Caso passe um ID em um formato diferente do UUID.
 }
 ```
 
+| ------------------------------ |
 | Código do Erro | 404 Not Found |
+| ------------------------------ |
 
 Caso passe um ID que não pertence a nenhum contato cadastrado.
 

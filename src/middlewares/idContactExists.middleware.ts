@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { v4 as uuidv4, validate as validateUUID } from "uuid";
+import { validate as validateUUID } from "uuid";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { Client, Contact } from "../entities";
+import { Contact } from "../entities";
 import { AppError } from "../errors";
-import { Console } from "console";
 
 export const contactExists = async (
   req: Request,

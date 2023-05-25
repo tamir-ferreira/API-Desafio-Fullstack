@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { DeepPartial, Repository } from "typeorm";
 import { Client } from "../entities";
+import { DeepPartial, Repository } from "typeorm";
 import * as schemas from "../schemas/clients.schema";
 
 export type Create = z.infer<typeof schemas.create>;

@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
-import { createContacts } from "../services/contacts/createContacts.service";
-import { readContacts } from "../services/contacts/readContacts.service";
-import { updateContacts } from "../services/contacts/updateContacts.service";
-import { removeContacts } from "../services/contacts/removeContacts.service";
-import * as i from "../interfaces";
+import * as services from "../services/contacts";
+import * as i from "../interfaces/contacts.interface";
 
 /* -------------------- CREATE CONTACT CONTROLLER ----------------------- */
 export const create = async (
@@ -12,7 +9,7 @@ export const create = async (
 ): Promise<Response> => {
   const clientId = res.locals.clientId;
 
-  const createdContact = await createContacts(req.body, clientId);
+  const createdContact = await services.createContacts(req.body, clientId);
   return res.status(201).json(createdContact);
 };
 
@@ -23,7 +20,7 @@ export const listByClient = async (
 ): Promise<Response> => {
   const clientId = res.locals.clientId;
 
-  const contacts = await readContacts(clientId);
+  const contacts = await services.readContacts(clientId);
 
   return res.status(200).json(contacts);
 };
@@ -34,7 +31,7 @@ export const remove = async (
   res: Response
 ): Promise<Response> => {
   const contactId = req.params.id;
-  await removeContacts(contactId);
+  await services.removeContacts(contactId);
 
   return res.status(204).json();
 };
@@ -46,8 +43,11 @@ export const update = async (
 ): Promise<Response> => {
   const contactId = req.params.id;
 
-  const updatedValues: i.contacts.Update = req.body;
-  const updatedContact = await updateContacts(contactId, updatedValues);
+  const updatedValues: i.Update = req.body;
+  const updatedContact = await services.updateContacts(
+    contactId,
+    updatedValues
+  );
 
   return res.status(200).json(updatedContact);
 };

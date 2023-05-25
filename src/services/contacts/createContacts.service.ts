@@ -17,10 +17,6 @@ export const createContacts = async (
     id: clientId,
   });
 
-  // console.log("===========================================================");
-  // console.log(client);
-  // console.log("===========================================================");
-
   if (!client) {
     throw new AppError("User not found", 404);
   }

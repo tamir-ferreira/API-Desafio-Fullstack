@@ -8,9 +8,6 @@ export const updateContacts = async (
   contactId: string,
   contactData: i.contacts.Update
 ): Promise<i.contacts.Response> => {
-  /* console.log("=============================================");
-  console.log(clientId);
-  console.log("============================================="); */
   const ContactRepo: i.contacts.ContactRepo =
     AppDataSource.getRepository(Contact);
 

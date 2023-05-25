@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createClients } from "../services/clients/createClients.service";
-import { readClients } from "../services/clients/readClients.service";
+import { readClientById } from "../services/clients/readClients.service";
 import { updateClients } from "../services/clients/updateClients.service";
 import { removeClients } from "../services/clients/removeClients.service";
 import * as i from "../interfaces";
@@ -20,11 +20,7 @@ export const listById = async (
   res: Response
 ): Promise<Response> => {
   const clientId = res.locals.clientId;
-  // console.log("==================================");
-  // console.log(clientId);
-  // console.log("==================================");
-
-  const client: i.clients.Response = await readClients(clientId);
+  const client: i.clients.Response = await readClientById(clientId);
 
   return res.status(200).json(client);
 };

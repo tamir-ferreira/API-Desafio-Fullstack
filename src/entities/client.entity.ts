@@ -16,12 +16,12 @@ export class Client {
   id: string;
 
   @Column({ length: 45 })
-  full_name: string;
+  name: string;
 
   @Column({ length: 45, unique: true })
   email: string;
 
-  @Column({ default: false, nullable: true })
+  @Column({ length: 15 })
   telephone: string;
 
   @Column({ length: 120 })
@@ -32,6 +32,7 @@ export class Client {
 
   @OneToMany(() => Contact, (contact) => contact.client, {
     onDelete: "CASCADE",
+    eager: true,
   })
   contacts: Contact[];
 

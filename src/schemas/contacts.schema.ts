@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const response = z.object({
   id: z.string(),
-  full_name: z.string().max(45),
+  name: z.string().max(45),
   email: z
     .string()
     .max(45)

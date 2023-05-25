@@ -1,8 +1,9 @@
 import { z } from "zod";
+import { response as contacts } from "./contacts.schema";
 
 export const response = z.object({
   id: z.string(),
-  full_name: z.string().max(45),
+  name: z.string().max(45),
   email: z
     .string()
     .max(45)
@@ -21,4 +22,6 @@ export const create = response
 
 export const update = create.partial();
 
-// export const ListById = response;
+export const listContacts = response.extend({
+  contacts: z.array(contacts),
+});

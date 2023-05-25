@@ -15,7 +15,7 @@ export const contactExists = async (
   const contactRepo: Repository<Contact> = AppDataSource.getRepository(Contact);
 
   if (!validateUUID(contactId)) {
-    throw new AppError("Invalid contact ID", 400);
+    throw new AppError("Invalid UUID format", 400);
   }
 
   const findId: boolean = await contactRepo.exist({

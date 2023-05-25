@@ -13,17 +13,17 @@ export class Contact {
   id: string;
 
   @Column({ length: 45 })
-  full_name: string;
+  name: string;
 
   @Column({ length: 45, unique: true })
   email: string;
 
-  @Column({ default: false, nullable: true })
+  @Column({ length: 15 })
   telephone: string;
 
   @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @ManyToOne(() => Client)
+  @ManyToOne(() => Client, (client) => client.contacts)
   client: Client;
 }

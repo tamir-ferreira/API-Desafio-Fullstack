@@ -10,6 +10,7 @@
   - [Migrations](#33-migrations)
 - [Autenticação](#4-autenticação)
 - [Endpoints](#5-endpoints)
+- [Possíveis Erros](#6-possíveis-erros)
 
 ---
 
@@ -106,7 +107,7 @@ App is running on http://localhost:3000
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
-Por enquanto, não foi implementada autenticação.
+A autenticação é feita através do Token gerado no momento do Login na API.
 
 ---
 
@@ -118,14 +119,14 @@ Por enquanto, não foi implementada autenticação.
 
 - [Clients](#1-clients)
   - [POST - /clients](#11-criação-de-cliente)
-  - [GET - /clients](#12-listando-cliente)
-  - [PATCH - /clients](#13-atualiza-cliente)
+  - [GET - /clients](#12-listar-cliente)
+  - [PATCH - /clients](#13-atualizar-cliente)
   - [DELETE - /clients](#14-deletar-cliente)
 - [Contacts](#2-contacts)
-  - [POST - /contacts](#11-criação-de-contato)
-  - [GET - /contacts](#12-listando-contato)
-  - [PATCH - /contacts](#13-atualiza-contato)
-  - [DELETE - /contacts](#14-deletar-contato)
+  - [POST - /contacts](#21-criação-de-contato)
+  - [GET - /contacts](#22-listar-contatos)
+  - [PATCH - /contacts](#23-atualizar-contato)
+  - [DELETE - /contacts](#24-deletar-contato)
 
 ---
 
@@ -228,9 +229,21 @@ Caso tente cadastrar um e-mail de cliente que já conste no database.
 }
 ```
 
+| Código do Erro | 400 Bad Request |
+
+Caso tente passar um campo no formato inválido, como o telefone por exemplo.
+
+```json
+{
+  "message": {
+    "telephone": ["Expected string, received number"]
+  }
+}
+```
+
 ---
 
-### 1.2. **Listando informações do cliente, incluindo seus contatos**
+### 1.2. **Listar Cliente**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -287,7 +300,7 @@ Vazio
 
 ---
 
-### 1.3. **Atualizar cliente**
+### 1.3. **Atualizar Cliente**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -330,7 +343,7 @@ Devem ser passados somente os dados a serem alterados, como exemplo o telefone.
 }
 ```
 
-### 1.4. **Deletar cliente**
+### 1.4. **Deletar Cliente**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -363,43 +376,9 @@ Vazio
 Vazio
 ```
 
-### Possíveis Erros das rotas autenticas:
-
-| Código do Erro | 401 Unauthorized |
-
-Caso tente acessar sem passar um Token.
-
-```json
-{
-  "message": "Missing bearer token"
-}
-```
-
-Caso tente acessar com um Token inválido.
-
-```json
-{
-  "message": "jwt malformed"
-}
-```
-
-| Código do Erro | 404 Not Found |
-
-Caso tente acessar com o Token de um cliente que já foi deletado do database.
-
-```json
-{
-  "message": "Client not found"
-}
-```
-
 ---
 
----
-
----
-
-## 1. **Contacts**
+## 2. **Contacts**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
@@ -424,7 +403,7 @@ O objeto Contact é definido como:
 
 ---
 
-### 1.1. **Criação de contato**
+### 2.1. **Criação de Contato**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
@@ -496,9 +475,21 @@ Caso tente cadastrar um e-mail de contato que já conste no database.
 }
 ```
 
+| Código do Erro | 400 Bad Request |
+
+Caso tente passar um campo no formato inválido, como o telefone por exemplo.
+
+```json
+{
+  "message": {
+    "telephone": ["Expected string, received number"]
+  }
+}
+```
+
 ---
 
-### 1.2. **Listando contatos do usuário autenticado**
+### 2.2. **Listar Contatos**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -548,7 +539,7 @@ Vazio
 
 ---
 
-### 1.3. **Atualizar contato**
+### 2.3. **Atualizar Contato**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -597,7 +588,7 @@ Devem ser passados somente os dados a serem alterados, como exemplo o telefone.
 }
 ```
 
-### 1.4. **Deletar contato**
+### 2.4. **Deletar Contato**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
@@ -638,31 +629,11 @@ Vazio
 
 ---
 
-### Possíveis Erros das rotas que exigem a passagem do ID por parâmetro:
+## 6. **Possíveis Erros**
 
-| Código do Erro | 400 Bad Request |
+[ Voltar para o topo ](#tabela-de-conteúdos)
 
-Caso passe um ID em um formato diferente do UUID.
-
-```json
-{
-  "message": "Invalid UUID format"
-}
-```
-
-| Código do Erro | 404 Not Found |
-
-Caso passe um ID que não pertence a nenhum contato cadastrado.
-
-```json
-{
-  "message": "Contact not found"
-}
-```
-
----
-
-### Possíveis Erros em todas aas rotas autenticas:
+### Rotas autenticas:
 
 | Código do Erro | 401 Unauthorized |
 
@@ -684,7 +655,31 @@ Caso tente acessar com um Token inválido.
 
 | Código do Erro | 404 Not Found |
 
-Caso tente acessar com o Token de um contato que já foi deletado do database.
+Caso tente acessar com o Token de um cliente que já foi deletado do database.
+
+```json
+{
+  "message": "Client not found"
+}
+```
+
+---
+
+### Rotas que exigem a passagem do ID por parâmetro:
+
+| Código do Erro | 400 Bad Request |
+
+Caso passe um ID em um formato diferente do UUID.
+
+```json
+{
+  "message": "Invalid UUID format"
+}
+```
+
+| Código do Erro | 404 Not Found |
+
+Caso passe um ID que não pertence a nenhum contato cadastrado.
 
 ```json
 {

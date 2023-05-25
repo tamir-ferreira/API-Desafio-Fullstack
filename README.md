@@ -122,11 +122,13 @@ A autenticação é feita através do Token gerado no momento do Login na API.
   - [GET - /clients](#12-listar-cliente)
   - [PATCH - /clients](#13-atualizar-cliente)
   - [DELETE - /clients](#14-deletar-cliente)
-- [Contacts](#2-contacts)
-  - [POST - /contacts](#21-criação-de-contato)
-  - [GET - /contacts](#22-listar-contatos)
-  - [PATCH - /contacts](#23-atualizar-contato)
-  - [DELETE - /contacts](#24-deletar-contato)
+- [Login](#2-login)
+  - [POST - /login](#21-realizar-login)
+- [Contacts](#3-contacts)
+  - [POST - /contacts](#31-criação-de-contato)
+  - [GET - /contacts](#32-listar-contatos)
+  - [PATCH - /contacts](#33-atualizar-contato)
+  - [DELETE - /contacts](#34-deletar-contato)
 
 ---
 
@@ -136,14 +138,14 @@ A autenticação é feita através do Token gerado no momento do Login na API.
 
 O objeto Client é definido como:
 
-| Campo     | Tipo   | Descrição                                     |
-| --------- | ------ | --------------------------------------------- |
-| id        | string | Identificador único do cliente (UUID)         |
-| full_name | string | O nome completo do cliente                    |
-| email     | string | O e-mail do cliente                           |
-| telephone | string | O telefone do cliente                         |
-| password  | string | A senha de acesso do cliente                  |
-| createdAt | date   | Data do cadastro do cliente (gerado pela API) |
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do cliente (UUID) |
+| name      | string | O nome completo do cliente            |
+| email     | string | O e-mail do cliente                   |
+| telephone | string | O telefone do cliente                 |
+| password  | string | A senha de acesso do cliente          |
+| createdAt | date   | Data do cadastro do cliente           |
 
 ### Endpoints
 
@@ -160,9 +162,9 @@ O objeto Client é definido como:
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-Esta rota não necessita de autenticação.
-
 ### `/clients`
+
+Esta rota não necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -191,9 +193,8 @@ As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
 
 ### Exemplo de Response:
 
-```
-201 Created
-```
+| 201 Created |
+| ----------- |
 
 ```json
 {
@@ -207,11 +208,10 @@ As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
 
 ### Possíveis Erros:
 
-| -------------------------------- |
-| Código do Erro | 400 Bad Request |
-| -------------------------------- |
-
 Caso não envie algum campo requerido, como password no exemplo.
+
+| 400 Bad Request |
+| --------------- |
 
 ```json
 {
@@ -221,23 +221,10 @@ Caso não envie algum campo requerido, como password no exemplo.
 }
 ```
 
-| ----------------------------- |
-| Código do Erro | 409 Conflict |
-| ----------------------------- |
-
-Caso tente cadastrar um e-mail de cliente que já conste no database.
-
-```json
-{
-  "message": "Email already exists"
-}
-```
-
-| -------------------------------- |
-| Código do Erro | 400 Bad Request |
-| -------------------------------- |
-
 Caso tente passar um campo no formato inválido, como o telefone por exemplo.
+
+| 400 Bad Request |
+| --------------- |
 
 ```json
 {
@@ -247,15 +234,26 @@ Caso tente passar um campo no formato inválido, como o telefone por exemplo.
 }
 ```
 
+Caso tente cadastrar um e-mail de cliente que já conste no database.
+
+| 409 Conflict |
+| ------------ |
+
+```json
+{
+  "message": "Email already exists"
+}
+```
+
 ---
 
 ### 1.2. **Listar Cliente**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/clients`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -274,9 +272,8 @@ Vazio
 
 ### Exemplo de Response:
 
-```
-200 OK
-```
+| 200 OK |
+| ------ |
 
 ```json
 {
@@ -310,9 +307,9 @@ Vazio
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/clients/`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -335,9 +332,8 @@ Devem ser passados somente os dados a serem alterados, como exemplo o telefone.
 
 ### Exemplo de Response:
 
-```
-200 OK
-```
+| 200 OK |
+| ------ |
 
 ```json
 {
@@ -349,13 +345,15 @@ Devem ser passados somente os dados a serem alterados, como exemplo o telefone.
 }
 ```
 
+---
+
 ### 1.4. **Deletar Cliente**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/clients/`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -374,9 +372,8 @@ Vazio
 
 ### Exemplo de Response:
 
-```
-204 No Content
-```
+| 204 No Content |
+| -------------- |
 
 ```json
 Vazio
@@ -384,19 +381,99 @@ Vazio
 
 ---
 
-## 2. **Contacts**
+## 2. **Login**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### Endpoints
+
+| Método | Rota   | Descrição                                        |
+| ------ | ------ | ------------------------------------------------ |
+| POST   | /login | Realiza login para a obtenção do Token de acesso |
+
+### 2.1. **Realizar Login**
+
+[ Voltar para os Endpoints ](#5-endpoints)
+
+### `/login`
+
+Esta rota não necessita de autenticação.
+
+### Exemplo de Request:
+
+```
+POST /contacts
+Host: URL BASE
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
+
+```json
+{
+  "email": "jorge@mail.com",
+  "password": "1234",
+  "chave_extra": "qualquer coisa"
+}
+```
+
+### Exemplo de Response:
+
+| 200 OK |
+| ------ |
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.yJlbWFpbCI6Impvc2VAbWFpbC5jb20uYnIiLCJpYXQiOjE
+  dUwNDMxNjksIdV4cCI6MTY4NTA0Njc2OSwic3ViIjoiMzJhZTA0ODItYzI1NC00YWFkLWEwNWUtODBkYmZhNTliY.WZlI
+  QtsPoO0O2fVj1YdlTDFrNrOqcRrOd6Ft8PO_txmfweffEhzU"
+}
+```
+
+### Possíveis Erros:
+
+Caso não envie algum campo requerido, como email no exemplo.
+
+| 400 Bad Request |
+| --------------- |
+
+```json
+{
+  "message": {
+    "email": ["Required"]
+  }
+}
+```
+
+Caso o usuário ou a senha passados sejam diferentes dos cadastrados no database.
+
+| 403 Forbidden |
+| ------------- |
+
+```json
+{
+  "message": "Invalid credentials"
+}
+```
+
+---
+
+## 3. **Contacts**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
 O objeto Contact é definido como:
 
-| Campo     | Tipo   | Descrição                                     |
-| --------- | ------ | --------------------------------------------- |
-| id        | string | Identificador único do contato (UUID)         |
-| full_name | string | O nome completo do contato                    |
-| email     | string | O e-mail do contato                           |
-| telephone | string | O telefone do contato                         |
-| createdAt | date   | Data do cadastro do contato (gerado pela API) |
+| Campo     | Tipo   | Descrição                              |
+| --------- | ------ | -------------------------------------- |
+| id        | string | Identificador único do contato (UUID)  |
+| name      | string | O nome completo do contato             |
+| email     | string | O e-mail do contato                    |
+| telephone | string | O telefone do contato                  |
+| createdAt | date   | Data que o cliente cadastrou o contato |
 
 ### Endpoints
 
@@ -409,13 +486,13 @@ O objeto Contact é definido como:
 
 ---
 
-### 2.1. **Criação de Contato**
+### 3.1. **Criação de Contato**
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/contacts`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -443,9 +520,8 @@ As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
 
 ### Exemplo de Response:
 
-```
-201 Created
-```
+| 201 Created |
+| ----------- |
 
 ```json
 {
@@ -459,11 +535,10 @@ As chaves não necessárias serão removidas. Como exemplo a "chave_extra".
 
 ### Possíveis Erros:
 
-| -------------------------------- |
-| Código do Erro | 400 Bad Request |
-| -------------------------------- |
-
 Caso não envie algum campo requerido, como email no exemplo.
+
+| 400 Bad Request |
+| --------------- |
 
 ```json
 {
@@ -473,11 +548,10 @@ Caso não envie algum campo requerido, como email no exemplo.
 }
 ```
 
-| ----------------------------- |
-| Código do Erro | 409 Conflict |
-| ----------------------------- |
-
 Caso tente cadastrar um e-mail de contato que já conste no database.
+
+| 409 Conflict |
+| ------------ |
 
 ```json
 {
@@ -485,11 +559,10 @@ Caso tente cadastrar um e-mail de contato que já conste no database.
 }
 ```
 
-| -------------------------------- |
-| Código do Erro | 400 Bad Request |
-| -------------------------------- |
-
 Caso tente passar um campo no formato inválido, como o telefone por exemplo.
+
+| 400 Bad Request |
+| --------------- |
 
 ```json
 {
@@ -501,13 +574,13 @@ Caso tente passar um campo no formato inválido, como o telefone por exemplo.
 
 ---
 
-### 2.2. **Listar Contatos**
+### 3.2. **Listar Contatos**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/contacts`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -526,9 +599,8 @@ Vazio
 
 ### Exemplo de Response:
 
-```
-200 OK
-```
+| 200 OK |
+| ------ |
 
 ```json
 [
@@ -551,13 +623,13 @@ Vazio
 
 ---
 
-### 2.3. **Atualizar Contato**
+### 3.3. **Atualizar Contato**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/contacts/:id`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -586,9 +658,8 @@ Devem ser passados somente os dados a serem alterados, como exemplo o telefone.
 
 ### Exemplo de Response:
 
-```
-200 OK
-```
+| 200 OK |
+| ------ |
 
 ```json
 {
@@ -600,13 +671,15 @@ Devem ser passados somente os dados a serem alterados, como exemplo o telefone.
 }
 ```
 
-### 2.4. **Deletar Contato**
+---
+
+### 3.4. **Deletar Contato**
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-Esta rota necessita de autenticação.
-
 ### `/contacts/:id`
+
+Esta rota necessita de autenticação.
 
 ### Exemplo de Request:
 
@@ -631,9 +704,8 @@ Vazio
 
 ### Exemplo de Response:
 
-```
-204 No Content
-```
+| 204 No Content |
+| -------------- |
 
 ```json
 Vazio
@@ -647,11 +719,10 @@ Vazio
 
 ### Rotas autenticas:
 
-| --------------------------------- |
-| Código do Erro | 401 Unauthorized |
-| --------------------------------- |
-
 Caso tente acessar sem passar um Token.
+
+| 401 Unauthorized |
+| ---------------- |
 
 ```json
 {
@@ -659,11 +730,10 @@ Caso tente acessar sem passar um Token.
 }
 ```
 
-| --------------------------------- |
-| Código do Erro | 401 Unauthorized |
-| --------------------------------- |
+Caso tente acessar com um Token no formato inválido.
 
-Caso tente acessar com um Token inválido.
+| 401 Unauthorized |
+| ---------------- |
 
 ```json
 {
@@ -671,11 +741,21 @@ Caso tente acessar com um Token inválido.
 }
 ```
 
-| -------------------------------|
-| Código do Erro | 404 Not Found |
-| -------------------------------|
+Caso tente acessar com um Token inválido.
+
+| 401 Unauthorized |
+| ---------------- |
+
+```json
+{
+  "message": "invalid token"
+}
+```
 
 Caso tente acessar com o Token de um cliente que já foi deletado do database.
+
+| 404 Not Found |
+| ------------- |
 
 ```json
 {
@@ -685,13 +765,12 @@ Caso tente acessar com o Token de um cliente que já foi deletado do database.
 
 ---
 
-### Rotas que exigem a passagem do ID por parâmetro:
-
-| -------------------------------- |
-| Código do Erro | 400 Bad Request |
-| -------------------------------- |
+### Rotas de Contatos, que exigem a passagem do ID por parâmetro:
 
 Caso passe um ID em um formato diferente do UUID.
+
+| 400 Bad Request |
+| --------------- |
 
 ```json
 {
@@ -699,11 +778,10 @@ Caso passe um ID em um formato diferente do UUID.
 }
 ```
 
-| ------------------------------ |
-| Código do Erro | 404 Not Found |
-| ------------------------------ |
-
 Caso passe um ID que não pertence a nenhum contato cadastrado.
+
+| 404 Not Found |
+| ------------- |
 
 ```json
 {
@@ -712,3 +790,10 @@ Caso passe um ID que não pertence a nenhum contato cadastrado.
 ```
 
 ---
+
+####Dúvidas ou sugestões:
+Não deixe de entrar em contato!!
+
+E-mail: bigtam_rj@yahoo.com.br
+Linkedin: https://www.linkedin.com/in/tamir-ferreira/
+GitHub: https://github.com/tamir-ferreira

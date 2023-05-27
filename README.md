@@ -799,11 +799,11 @@ Caso passe um ID que não pertence a nenhum contato cadastrado.
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
-#### Dúvidas ou sugestões:
+Para informações de contato e conhecer um pouco mais sobre mim, acesse:
 
-Não deixe de entrar em contato!!
+| Portfólio | https://tamir-ferreira.vercel.app          |
+| --------- | :----------------------------------------- |
+| Linkedin  | https://www.linkedin.com/in/tamir-ferreira |
+| GitHub    | https://github.com/tamir-ferreira          |
 
-E-mail: bigtam_rj@yahoo.com.br
-Linkedin: https://www.linkedin.com/in/tamir-ferreira/
-GitHub: https://github.com/tamir-ferreira
-Portfólio: https://tamir-ferreira.vercel.app/
+---

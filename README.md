@@ -1,5 +1,3 @@
-# Documentação da API
-
 ## Tabela de Conteúdos
 
 - [Visão Geral](#1-visão-geral)
@@ -11,12 +9,18 @@
 - [Autenticação](#4-autenticação)
 - [Endpoints](#5-endpoints)
 - [Possíveis Erros](#6-possíveis-erros)
-
----
+- [Contatos](#7-contatos)
 
 ## 1. Visão Geral
 
-Visão geral do projeto, um pouco das tecnologias usadas.
+A API é uma agenda de contatos com cadastro de usuários, onde os usuários conseguem cadastrar contatos com telefone e e-mail.
+Além de listar, editar e deletar seus contatos.
+
+A API foi construída em TypeScript com Express.js/TypeORM no Node.js e utiliza o PostgreSQL como banco de dados.
+
+Para as validações dos campos dos formulários foi utilizada a biblioteca Zod.
+
+Maiores informações sobre alguma das tecnologias usadas.
 
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/pt-br/)
@@ -791,9 +795,15 @@ Caso passe um ID que não pertence a nenhum contato cadastrado.
 
 ---
 
-####Dúvidas ou sugestões:
+## 7. Contatos
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+#### Dúvidas ou sugestões:
+
 Não deixe de entrar em contato!!
 
 E-mail: bigtam_rj@yahoo.com.br
 Linkedin: https://www.linkedin.com/in/tamir-ferreira/
 GitHub: https://github.com/tamir-ferreira
+Portfólio: https://tamir-ferreira.vercel.app/

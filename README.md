@@ -804,6 +804,3 @@ Para informações de contato e conhecer um pouco mais sobre mim, acesse:
 | **Portfólio** | **https://tamir-ferreira.vercel.app**          |
 | ------------- | :--------------------------------------------- |
 | **Linkedin**  | **https://www.linkedin.com/in/tamir-ferreira** |
-| **GitHub**    | **https://github.com/tamir-ferreira**          |
-
----

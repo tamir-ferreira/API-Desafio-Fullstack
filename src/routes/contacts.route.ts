@@ -16,13 +16,18 @@ contacts.post(
   controller.create
 );
 
-contacts.use(middleware.contactExists, middleware.ensureIsOwnerMiddleware);
-
 contacts.patch(
   "/:id",
+  middleware.idContactExists,
+  middleware.ensureIsOwnerMiddleware,
   middleware.validateBody(schema.contacts.update),
   middleware.emailContactExists,
   controller.update
 );
 
-contacts.delete("/:id", controller.remove);
+contacts.delete(
+  "/:id",
+  middleware.idContactExists,
+  middleware.ensureIsOwnerMiddleware,
+  controller.remove
+);

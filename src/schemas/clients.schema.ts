@@ -9,7 +9,7 @@ export const response = z.object({
     .max(45)
     .email()
     .transform((email) => email.toLowerCase()),
-  telephone: z.string(),
+  telephone: z.string().max(15),
   createdAt: z.string(),
 });
 

@@ -5,6 +5,6 @@ export const response = z.object({
 });
 
 export const request = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z.string().email().max(45),
+  password: z.string().max(120),
 });

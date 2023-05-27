@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { validate as validateUUID } from "uuid";
+import { v4 as uuidv4, validate as validateUUID } from "uuid";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Contact } from "../entities";
 import { AppError } from "../errors";
 
-export const contactExists = async (
+export const idContactExists = async (
   req: Request,
   _: Response,
   next: NextFunction
